@@ -17,7 +17,7 @@
       yarn2nix-pkgs = import yarn2nix-src { pkgs = pkgs; };
       makeReasonDrv = import ./make-reason-drv.nix;
       makeReasonPackage = { name, src } :
-        pkgs.callPackage ( makeReasonDrv { inherit name src;} ) {};
+        ( pkgs // yarn2nix-pkgs ).callPackage ( makeReasonDrv { inherit name src;} ) {};
 
   in
     {
