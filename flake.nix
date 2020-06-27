@@ -11,7 +11,7 @@
       system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit system;
-        overlays = [ self.overlay ];
+        # overlays = [ self.overlay ];
       };
 
       yarn2nix-pkgs = import yarn2nix-src { pkgs = pkgs; };
