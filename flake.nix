@@ -1,5 +1,5 @@
 {
-  description = "Helper to package reason apps.}";
+  description = "Helper to package reason apps.";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   inputs.yarn2nix-src.url = "github:moretea/yarn2nix";
@@ -16,12 +16,12 @@
 
       yarn2nix-pkgs = import yarn2nix-src { pkgs = pkgs; };
       makeReasonDrv = import ./make-reason-drv.nix;
-      makeReasonPkg = { name, src } :
+      makeReasonPackage = { name, src } :
         yarn2nix-pkgs.callPackage ( makeReasonDrv { inherit name src;} ) {};
 
   in
     {
-      lib = { inherit makeReasonPkg; };
+      lib = { inherit makeReasonPackage; };
     };
 
 }
