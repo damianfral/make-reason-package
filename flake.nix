@@ -11,17 +11,18 @@
       system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit system;
-        # overlays = [ self.overlay ];
+        overlays = [ self.overlay ];
       };
 
       yarn2nix-pkgs = import yarn2nix-src { pkgs = pkgs; };
       makeReasonDrv = import ./make-reason-drv.nix;
       makeReasonPackage = { name, src } :
-        ( pkgs // yarn2nix-pkgs ).callPackage ( makeReasonDrv { inherit name src;} ) {};
+        pkgs.callPackage ( makeReasonDrv { inherit name src;} ) {};
 
   in
-    {
-      lib = { inherit makeReasonPackage; };
+  {
+    overlay = final : prev : { inherit yarn2nix-pkgs; };
+    lib = { inherit makeReasonPackage; };
     };
 
 }
