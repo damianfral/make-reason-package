@@ -7,22 +7,24 @@
 
   outputs = { self, nixpkgs, yarn2nix-src }@inputs:
 
-  let
+    let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit system;
         overlays = [ self.overlay ];
       };
 
-      yarn2nix-pkgs = import yarn2nix-src { pkgs = pkgs; };
       makeReasonDrv = import ./make-reason-drv.nix;
-      makeReasonPackage = { name, src } :
-        pkgs.callPackage ( makeReasonDrv { inherit name src;} ) {};
+      makeReasonPackage = { name, src }:
+        pkgs.callPackage (makeReasonDrv { inherit name src; }) { };
 
-  in
-  {
-    overlay = final : prev : { inherit yarn2nix-pkgs; };
-    lib = { inherit makeReasonPackage; };
+    in {
+      overlay = final: prev: {
+        inherit (import yarn2nix-src { pkgs = final; })
+          yarn2nix mkYarnModules mkYarnNix;
+      };
+
+      lib = { inherit makeReasonPackage; };
     };
 
 }
