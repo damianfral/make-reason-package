@@ -21,7 +21,7 @@
     in {
       overlay = final: prev: {
         inherit (import yarn2nix-src { pkgs = final; })
-          yarn2nix mkYarnModules mkYarnNix;
+          yarn2nix mkYarnPackage mkYarnModules mkYarnNix;
       };
 
       lib = { inherit makeReasonPackage; };
