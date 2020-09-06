@@ -2,7 +2,8 @@
   description = "Helper to package reason apps.";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-  inputs.yarn2nix-src.url = "github:moretea/yarn2nix";
+  inputs.yarn2nix-src.url =
+    "github:moretea/yarn2nix/841b6c67a989952f990e0856da9bb00fe5a60de8";
   inputs.yarn2nix-src.flake = false;
 
   outputs = { self, nixpkgs, yarn2nix-src }@inputs:
