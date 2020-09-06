@@ -16,7 +16,7 @@
       };
 
     in {
-      overlay = final: prev: let {
+      overlay = final: prev: rec {
         inherit (import yarn2nix-src { pkgs = final; })
           yarn2nix mkYarnPackage mkYarnModules mkYarnNix;
         makeReasonDrv = import ./make-reason-drv.nix;
