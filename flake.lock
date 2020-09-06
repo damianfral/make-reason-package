@@ -25,16 +25,17 @@
     "yarn2nix-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1590755611,
-        "narHash": "sha256-5HBZFUBDtHmdHARBxB6l8XmhHtpCWEpkEt+UCLwrmqg=",
+        "lastModified": 1540373548,
+        "narHash": "sha256-KGFVEhQ929a+D6lLEmnDdukT3OeWO3Hje2u2qpTZzz0=",
         "owner": "moretea",
         "repo": "yarn2nix",
-        "rev": "f38737c68d64af0f87a1324a57b0858766531e65",
+        "rev": "841b6c67a989952f990e0856da9bb00fe5a60de8",
         "type": "github"
       },
       "original": {
         "owner": "moretea",
         "repo": "yarn2nix",
+        "rev": "841b6c67a989952f990e0856da9bb00fe5a60de8",
         "type": "github"
       }
     }
