@@ -15,17 +15,14 @@
         overlays = [ self.overlay ];
       };
 
-      makeReasonDrv = import ./make-reason-drv.nix;
-      makeReasonPackage = { name, src }:
-        pkgs.callPackage (makeReasonDrv { inherit name src; }) { };
-
     in {
-      overlay = final: prev: {
+      overlay = final: prev: rec {
         inherit (import yarn2nix-src { pkgs = final; })
           yarn2nix mkYarnPackage mkYarnModules mkYarnNix;
+        makeReasonDrv = import ./make-reason-drv.nix;
+        makeReasonPackage = { name, src }:
+          prev.callPackage (makeReasonDrv { inherit name src; }) { };
       };
-
-      lib = { inherit makeReasonPackage; };
     };
 
 }
