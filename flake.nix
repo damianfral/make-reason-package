@@ -21,7 +21,7 @@
           yarn2nix mkYarnPackage mkYarnModules mkYarnNix;
         makeReasonDrv = import ./make-reason-drv.nix;
         makeReasonPackage = { name, src }:
-          final.callPackage (makeReasonDrv { inherit name src; }) { };
+          prev.callPackage (makeReasonDrv { inherit name src; }) { };
       };
     };
 
