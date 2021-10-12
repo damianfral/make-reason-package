@@ -11,7 +11,7 @@
     exit -1
   fi
 '', localDeps ? [ ], shellHook ? "", postFixup ? "" }:
-{ stdenv, writeScript, callPackage, yarn, nodejs, rsync, bs-platform
+{ stdenv, lib, writeScript, callPackage, yarn, nodejs, rsync, bs-platform
 , ocamlPackages, utillinux }:
 let
 
@@ -41,7 +41,7 @@ let
       # we'd like to include in the node_modules dir
     , localDeps ? [ ], preBuild ? "", postFixup ? "" }:
     { stdenv, mkYarnModules, bs-platform, mkYarnNix }:
-    (stdenv.lib.overrideDerivation (mkYarnModules {
+    (lib.overrideDerivation (mkYarnModules {
       inherit name version yarnLock packageJSON;
       pname = "${name}-${version}";
 
@@ -51,7 +51,7 @@ let
       # by yarn2nix copies all localDeps into the build dir so
       # yarn can find them in the place it expects them
       preBuild = ''
-        ${stdenv.lib.concatMapStrings (path: "unpackFile ${path};") localDeps}
+        ${lib.concatMapStrings (path: "unpackFile ${path};") localDeps}
       '';
     }) (old: {
       propagatedBuildInputs = (old.propagatedBuildInputs or [ ])
@@ -95,7 +95,7 @@ in stdenv.mkDerivation {
     ${bringModules}
     ${yarnPreinstall}
 
-    ${stdenv.lib.optionalString (ocaml_exported != null) ''
+    ${lib.optionalString (ocaml_exported != null) ''
       # Copy ocaml_exported types
       chmod -R u+w .
       rsync -a ${ocaml_exported}/ ./
